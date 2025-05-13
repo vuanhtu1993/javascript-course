@@ -13,6 +13,7 @@
     "vite": "^6.3.5"
   },
   "dependencies": {
+    "@types/navigo": "^8.1.2",
     "navigo": "^8.11.1"
   }
 }

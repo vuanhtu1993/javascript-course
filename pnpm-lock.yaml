@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@types/navigo':
+        specifier: ^8.1.2
+        version: 8.1.2
       navigo:
         specifier: ^8.11.1
         version: 8.11.1
@@ -274,6 +277,10 @@ packages:
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
 
+  '@types/navigo@8.1.2':
+    resolution: {integrity: sha512-D/cX7Wq7lMGjEX42Dgwi6PsDk29VpurpKi0ZY64RyRXdiSME7ESy+jOif4qQjgPuPvxehklty5Rga/0/nLXSqw==}
+    deprecated: This is a stub types definition. navigo provides its own type definitions, so you do not need this installed.
+
   esbuild@0.25.4:
     resolution: {integrity: sha512-8pgjLUcUjcgDg+2Q4NYXnPbo/vncAY4UmyaCm0jZevERqCHZIaWwdJHkf8XQtu4AxSKCdvrUbT0XUr1IdZzI8Q==}
     engines: {node: '>=18'}
@@ -507,6 +514,10 @@ snapshots:
     optional: true
 
   '@types/estree@1.0.7': {}
+
+  '@types/navigo@8.1.2':
+    dependencies:
+      navigo: 8.11.1
 
   esbuild@0.25.4:
     optionalDependencies:
