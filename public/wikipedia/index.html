@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wikipedia Search</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Wikipedia Search</h1>
+      <div class="search-container">
+        <form class="search-form">
+          <input type="text" class="search-input" placeholder="Search Wikipedia..." required minlength="3">
+          <button type="submit" class="search-btn">Search</button>
+        </form>
+        <div class="suggestion-box hide"></div>
+      </div>
+    </header>
+
+    <main>
+      <div class="loading hide">Loading...</div>
+      <div class="error hide"></div>
+
+      <!-- Search Results -->
+      <section class="search-results hide">
+        <h2>Search Results</h2>
+        <div class="results-container"></div>
+      </section>
+
+      <!-- Article Detail -->
+      <section class="article-detail hide">
+        <button class="back-btn">← Back to results</button>
+        <article class="article-content"></article>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>

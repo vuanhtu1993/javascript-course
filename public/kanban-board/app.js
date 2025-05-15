@@ -101,6 +101,8 @@ function findTaskColumn(taskText) {
 // Add new task functionality
 function initializeAddTask() {
   const addButtons = document.querySelectorAll('.add-task');
+  console.log(addButtons);
+
 
   addButtons.forEach(button => {
     button.addEventListener('click', () => {

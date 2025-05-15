@@ -5,6 +5,12 @@ const HomePage = () => {
       name: 'Kanban Board',
       description: 'A drag and drop kanban board for task management',
       path: '/kanban-board/index.html'
+    },
+    {
+      id: 'wikipedia-search',
+      name: 'Wikipedia Search',
+      description: 'A simple Wikipedia search application',
+      path: '/wikipedia/index.html'
     }
     // More apps will be added here in the future
   ]
