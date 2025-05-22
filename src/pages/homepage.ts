@@ -11,6 +11,12 @@ const HomePage = () => {
       name: 'Wikipedia Search',
       description: 'A simple Wikipedia search application',
       path: '/wikipedia/index.html'
+    },
+    {
+      id: 'portfolio',
+      name: 'Portfolio',
+      description: 'A portfolio theme from anhtus',
+      path: '/portfolio/index.html'
     }
     // More apps will be added here in the future
   ]
