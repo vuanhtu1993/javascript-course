@@ -17,6 +17,12 @@ const HomePage = () => {
       name: 'Portfolio',
       description: 'A portfolio theme from anhtus',
       path: '/portfolio/index.html'
+    },
+    {
+      id: 'landing-page',
+      name: 'Landing Page',
+      description: 'A landing page theme from anhtus',
+      path: '/landing-page/index.html'
     }
     // More apps will be added here in the future
   ]
