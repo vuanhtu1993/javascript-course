@@ -29,6 +29,12 @@ const HomePage = () => {
       name: 'Name Generation',
       description: 'A name generation theme from anhtus',
       path: '/name-generation/index.html'
+    },
+    {
+      id: 'white-noise',
+      name: 'White Noise',
+      description: 'A white noise theme from anhtus',
+      path: '/white-noise/index.html'
     }
     // More apps will be added here in the future
   ]
