@@ -45,6 +45,13 @@
       60%, 79.9% { margin-top: 30%; margin-left: 20%; }
       80%, 99.9% { margin-top: 30%; margin-left: 80%; }
     }
+    /* Simple fireworks on #burstLayer */
+    #burstLayer .spark { position: absolute; width: 8px; height: 8px; border-radius: 9999px; opacity: 0; will-change: transform, opacity, filter; }
+    #burstLayer .spark.go { animation: sparkOut 0.9s ease-out forwards; }
+    @keyframes sparkOut {
+      0% { transform: translate(-50%,-50%) scale(1); opacity: 1; filter: brightness(1.1) saturate(1.1); }
+      100% { transform: translate(calc(-50% + var(--tx,0)), calc(-50% + var(--ty,0))) scale(.9); opacity: 0; filter: brightness(1) saturate(1); }
+    }
     /* Celebrate toast */
     .celebrate { opacity: 0; transition: opacity .5s ease; }
     .celebrate.show { opacity: 1; }
@@ -54,7 +61,7 @@
 </head>
 <body class="min-h-screen bg-gradient-to-b from-white to-slate-50 text-slate-900 antialiased flex flex-col items-center p-4 sm:p-6">
   <header class="w-full max-w-3xl flex items-center justify-between mb-6 relative z-10">
-    <h1 class="text-xl md:text-2xl font-semibold tracking-tight text-slate-900">🎰 Random Name</h1>
+    <h1 class="text-xl md:text-2xl font-semibold tracking-tight text-slate-900">🌱 Vừng chọn tên</h1>
     <button id="settingsBtn" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 active:scale-[.99] text-slate-700 shadow-sm" title="Cấu hình">
       ⚙️ <span class="hidden sm:inline">Cấu hình</span>
     </button>
@@ -105,7 +112,7 @@
   <div id="celebrate" class="fixed inset-x-0 top-4 z-20 flex justify-center celebrate pointer-events-none">
     <div class="card bg-white/90 backdrop-blur-md border border-slate-200 shadow-xl rounded-2xl px-4 py-2.5 flex items-center gap-2 text-slate-900">
       <span class="text-2xl">🎉</span>
-      <span class="font-semibold">Chúc mừng! Tên đã được tạo</span>
+      <span id="celMsg" class="font-semibold">Chúc mừng! </span>
     </div>
   </div>
 
@@ -282,10 +289,39 @@
         // ensure fade-in state is applied without hiding during run
         display.classList.add('fade');
         requestAnimationFrame(()=>{ display.classList.add('show'); });
-        // Fireworks now purely CSS (always running in background)
+        // Fireworks now purely CSS (always running in background); add simple sparks on burstLayer
         playWin();
+        const layer = document.getElementById('burstLayer');
+        if(layer){
+          const layerBox = layer.getBoundingClientRect();
+          const box = display.getBoundingClientRect();
+          const cx = box.left + box.width/2 - layerBox.left;
+          const cy = box.top + box.height*0.5 - layerBox.top;
+          const isSmall = window.innerWidth < 480;
+          const N = isSmall ? 16 : 28;
+          const base = isSmall ? 70 : 90;
+          const extra = isSmall ? 90 : 140;
+          for(let i=0;i<N;i++){
+            const sp = document.createElement('span');
+            sp.className = 'spark go';
+            const ang = Math.random()*Math.PI*2;
+            const dist = base + Math.random()*extra;
+            const tx = Math.cos(ang)*dist; const ty = Math.sin(ang)*dist;
+            const hue = Math.floor(Math.random()*360);
+            sp.style.left = cx+'px'; sp.style.top = cy+'px';
+            sp.style.background = `hsl(${hue} 95% 60%)`;
+            sp.style.boxShadow = `0 0 12px hsla(${hue} 95% 60% / .8)`;
+            sp.style.setProperty('--tx', tx+'px');
+            sp.style.setProperty('--ty', ty+'px');
+            sp.style.animationDelay = (Math.random()*0.08)+'s';
+            sp.addEventListener('animationend', ()=> sp.remove());
+            layer.appendChild(sp);
+          }
+        }
         // Show celebrate toast briefly
         const cel = document.getElementById('celebrate');
+        const celMsg = document.getElementById('celMsg');
+        if(celMsg){ celMsg.textContent = `Chúc mừng! ${n.full}`; }
         if(cel){
           cel.classList.remove('show'); // reset
           // force reflow to restart transition
