@@ -1,0 +1,14 @@
+{
+  "background": {
+    "enabled": true,
+    "src": "/sound/background-rain.mp3",
+    "volume": 0.25,
+    "autoStartOnLoad": true,
+    "loop": true
+  },
+  "player": {
+    "volume": 0.8,
+    "loop": true,
+    "autoStopMinutes": 15
+  }
+}
