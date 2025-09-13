@@ -23,6 +23,12 @@ const HomePage = () => {
       name: 'Landing Page',
       description: 'A landing page theme from anhtus',
       path: '/landing-page/index.html'
+    },
+    {
+      id: 'name-generation',
+      name: 'Name Generation',
+      description: 'A name generation theme from anhtus',
+      path: '/name-generation/index.html'
     }
     // More apps will be added here in the future
   ]

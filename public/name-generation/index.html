@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Random Name Jackpot</title>
+  <style>
+    .cyber { 
+      background: linear-gradient(90deg, #2563eb, #8b5cf6, #06b6d4);
+      background-size: 200% auto;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: shine 3s linear infinite;
+      letter-spacing: 0.02em;
+    }
+    @keyframes shine { to { background-position: 200% center; } }
+    @keyframes pulseBg { 0%,100% { transform: scale(1) } 50% { transform: scale(1.03) } }
+    /* remove JS-particle styles: now purely CSS fireworks below */
+    .fade { opacity: 0; filter: blur(2px); transform: translateY(0.15rem); }
+    .fade.show { opacity: 1; filter: blur(0); transform: none; transition: opacity .6s ease, filter .6s ease, transform .6s ease; }
+    .balance { text-wrap: balance; }
+    @media (prefers-reduced-motion: reduce) {
+      .cyber { animation: none; }
+      .p.anim { animation: none; opacity: 0; }
+      .fade.show { transition: none; }
+    }
+
+    /* Firework (pyro) — CSS-based burst using provided reference */
+    .pyro { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .pyro > .before, .pyro > .after {
+      position: absolute; width: 5px; height: 5px; border-radius: 50%;
+      box-shadow: -120px -218.66667px blue, 248px -16.66667px #00ff84, 190px 16.33333px #002bff, -113px -308.66667px #ff009d, -109px -287.66667px #ffb300, -50px -313.66667px #ff006e, 226px -31.66667px #ff4000, 180px -351.66667px #ff00d0, -12px -338.66667px #00f6ff, 220px -388.66667px #99ff00, -69px -27.66667px #ff0400, -111px -339.66667px #6200ff, 155px -237.66667px #00ddff, -152px -380.66667px #00ffd0, -50px -37.66667px #00ffdd, -95px -175.66667px #a6ff00, -88px 10.33333px #0d00ff, 112px -309.66667px #005eff, 69px -415.66667px #ff00a6, 168px -100.66667px #ff004c, -244px 24.33333px #ff6600, 97px -325.66667px #ff0066, -211px -182.66667px #00ffa2, 236px -126.66667px #b700ff, 140px -196.66667px #9000ff, 125px -175.66667px #00bbff, 118px -381.66667px #ff002f, 144px -111.66667px #ffae00, 36px -78.66667px #f600ff, -63px -196.66667px #c800ff, -218px -227.66667px #d4ff00, -134px -377.66667px #ea00ff, -36px -412.66667px #ff00d4, 209px -106.66667px #00fff2, 91px -278.66667px #000dff, -22px -191.66667px #9dff00, 139px -392.66667px #a6ff00, 56px -2.66667px #0099ff, -156px -276.66667px #ea00ff, -163px -233.66667px #00fffb, -238px -346.66667px #00ff73, 62px -363.66667px #0088ff, 244px -170.66667px #0062ff, 224px -142.66667px #b300ff, 141px -208.66667px #9000ff, 211px -285.66667px #ff6600, 181px -128.66667px #1e00ff, 90px -123.66667px #c800ff, 189px 70.33333px #00ffc8, -18px -383.66667px #00ff33, 100px -6.66667px #ff008c;
+      animation: bang 1.0s ease-out infinite backwards, gravity 1.0s ease-in infinite backwards, position 5s linear infinite backwards;
+    }
+    .pyro > .after {
+      animation-delay: 1.25s, 1.25s, 1.25s;
+      animation-duration: 1.25s, 1.25s, 6.25s;
+    }
+    @keyframes bang { from { box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+    @keyframes gravity { to { transform: translateY(200px); opacity: 0; } }
+    @keyframes position {
+      0%, 19.9% { margin-top: 10%; margin-left: 40%; }
+      20%, 39.9% { margin-top: 40%; margin-left: 30%; }
+      40%, 59.9% { margin-top: 20%; margin-left: 70%; }
+      60%, 79.9% { margin-top: 30%; margin-left: 20%; }
+      80%, 99.9% { margin-top: 30%; margin-left: 80%; }
+    }
+    /* Celebrate toast */
+    .celebrate { opacity: 0; transition: opacity .5s ease; }
+    .celebrate.show { opacity: 1; }
+    @keyframes popIn { from { transform: scale(.92); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+    .celebrate .card { animation: popIn .45s ease both; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-white to-slate-50 text-slate-900 antialiased flex flex-col items-center p-4 sm:p-6">
+  <header class="w-full max-w-3xl flex items-center justify-between mb-6 relative z-10">
+    <h1 class="text-xl md:text-2xl font-semibold tracking-tight text-slate-900">🎰 Random Name</h1>
+    <button id="settingsBtn" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 active:scale-[.99] text-slate-700 shadow-sm" title="Cấu hình">
+      ⚙️ <span class="hidden sm:inline">Cấu hình</span>
+    </button>
+  </header>
+
+  <!-- Sidebar Settings -->
+  <div id="settingsOverlay" class="fixed inset-0 z-40 bg-black/30 opacity-0 pointer-events-none transition-opacity"></div>
+  <aside id="settingsPanel" class="fixed z-50 left-0 top-0 h-full w-72 max-w-[85vw] bg-white border-r border-slate-200 shadow-xl transform -translate-x-full transition-transform">
+    <div class="h-full flex flex-col">
+      <div class="flex items-center justify-between px-4 py-3 border-b border-slate-200">
+        <h2 class="text-sm font-semibold text-slate-700">Cấu hình</h2>
+        <button id="closeSettings" class="text-slate-500 hover:text-slate-700">✖</button>
+      </div>
+      <div class="p-4 space-y-4 overflow-auto">
+        <div>
+          <label class="flex items-center justify-between text-sm text-slate-700">
+            <span>Bật âm thanh</span>
+            <input id="soundToggle" type="checkbox" class="accent-emerald-500" checked>
+          </label>
+        </div>
+        <div>
+          <label class="block text-sm text-slate-700 mb-2">Thời gian chạy random</label>
+          <input id="durationRange" type="range" min="1200" max="5000" step="100" value="2200" class="w-full">
+          <div class="text-xs text-slate-500 mt-1"><span id="durationValue">2.2</span> giây</div>
+        </div>
+        <div>
+          <label class="block text-sm text-slate-700 mb-2">Màu sắc chữ</label>
+          <select id="colorPreset" class="w-full px-2 py-2 rounded-lg border border-slate-300 bg-white text-sm">
+            <option value="neon" selected>Neon (Xanh → Tím → Cyan)</option>
+            <option value="sunset">Sunset (Vàng → Đỏ → Hồng)</option>
+            <option value="emerald">Emerald (Xanh lá → Cyan)</option>
+            <option value="mono">Mono (Xám đậm)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <!-- Ensure Tailwind sees classes we toggle dynamically -->
+  <div class="hidden translate-x-0 opacity-100"></div>
+
+  <!-- Pure CSS Fireworks overlay -->
+  <div class="pyro fixed inset-0 z-0 pointer-events-none">
+    <div class="before"></div>
+    <div class="after"></div>
+  </div>
+
+  <!-- Celebrate toast overlay -->
+  <div id="celebrate" class="fixed inset-x-0 top-4 z-20 flex justify-center celebrate pointer-events-none">
+    <div class="card bg-white/90 backdrop-blur-md border border-slate-200 shadow-xl rounded-2xl px-4 py-2.5 flex items-center gap-2 text-slate-900">
+      <span class="text-2xl">🎉</span>
+      <span class="font-semibold">Chúc mừng! Tên đã được tạo</span>
+    </div>
+  </div>
+
+  <section class="w-full max-w-3xl bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-xl relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+      <div>
+        <label class="block text-xs text-slate-400 mb-1">Họ tên bố</label>
+        <input id="father" class="w-full px-3 py-2 rounded-xl bg-white outline-none border border-slate-300 focus:border-slate-400 shadow-sm transition placeholder:text-slate-400" value="Vũ Anh Tú" placeholder="Ví dụ: Nguyễn Văn A">
+      </div>
+      <div>
+        <label class="block text-xs text-slate-400 mb-1">Họ tên mẹ</label>
+        <input id="mother" class="w-full px-3 py-2 rounded-xl bg-white outline-none border border-slate-300 focus:border-slate-400 shadow-sm transition placeholder:text-slate-400" value="Lê Hà Vân" placeholder="Ví dụ: Trần Thị B">
+      </div>
+    </div>
+
+    <div class="relative mb-4 bg-slate-50 rounded-2xl p-6 sm:p-8 ring-1 ring-slate-200 overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none opacity-70 animate-[pulseBg_8s_ease-in-out_infinite]"
+           style="background:
+             radial-gradient(900px 300px at 20% 20%, rgba(99,102,241,.10), transparent 60%),
+             radial-gradient(700px 260px at 80% 80%, rgba(14,165,233,.10), transparent 60%);"></div>
+      <div id="display" class="relative text-center select-none text-4xl sm:text-5xl md:text-6xl leading-tight break-words balance px-2 max-w-full mx-auto font-extrabold cyber fade show [text-shadow:0_1px_0_rgba(255,255,255,.1)]"></div>
+      <div id="burstLayer" class="pointer-events-none absolute inset-0 overflow-visible"></div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+      <button id="spinBtn" class="w-full sm:w-auto min-h-[44px] px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 active:scale-[.99] text-white font-semibold shadow-sm shadow-emerald-500/20">Tạo tên</button>
+      <button id="stopBtn" class="w-full sm:w-auto min-h-[44px] px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 active:scale-[.99] text-slate-900 border border-slate-300">Dừng</button>
+    </div>
+  </section>
+
+  <script>
+    const MIDDLES = ["Nguyên", "Minh"];
+    const GIVENS  = ["Đăng"];
+
+    const randInt = (n) => {
+      if (n <= 0) return 0;
+      if (window.crypto?.getRandomValues) {
+        const max = 0xFFFFFFFF; // 2^32 - 1
+        const bound = max + 1;
+        const threshold = bound - (bound % n);
+        const buf = new Uint32Array(1);
+        do { window.crypto.getRandomValues(buf); } while (buf[0] >= threshold);
+        return buf[0] % n;
+      }
+      return Math.floor(Math.random() * n);
+    };
+
+    const soundToggle = document.getElementById("soundToggle");
+    let soundEnabled = soundToggle ? soundToggle.checked : true;
+    let actx = null;
+    function ensureAudio(){
+      if(!soundEnabled) return false;
+      if(!actx){
+        actx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if(actx.state === 'suspended') actx.resume();
+      return true;
+    }
+    soundToggle && soundToggle.addEventListener('change', () => { soundEnabled = soundToggle.checked; saveSettings(); });
+
+    function playWin(){
+      if(!ensureAudio()) return;
+      const t0 = actx.currentTime;
+      // Richer, longer arpeggio (~2s) with light shimmer and stereo spread
+      const notes = [
+        523.25, 659.25, 783.99, 987.77, 1174.66, 1318.51, 1567.98 // C5, E5, G5, B5, D6, E6, G6
+      ];
+      const step = 0.22; // spacing between notes
+      const noteLen = 0.28; // each note envelope length
+
+      // Master bus
+      const master = actx.createGain();
+      master.gain.setValueAtTime(0.9, t0);
+      master.connect(actx.destination);
+
+      // Shimmer delay (subtle)
+      const delay = actx.createDelay(1.0); delay.delayTime.setValueAtTime(0.18, t0);
+      const fb = actx.createGain(); fb.gain.setValueAtTime(0.28, t0);
+      const wet = actx.createGain(); wet.gain.setValueAtTime(0.35, t0);
+      master.connect(delay); delay.connect(fb).connect(delay); delay.connect(wet); wet.connect(actx.destination);
+
+      notes.forEach((freq, i) => {
+        const t = t0 + i*step;
+        // Layered oscillators with slight detune and pan per note
+        const pan = actx.createStereoPanner(); pan.pan.setValueAtTime(-0.4 + (i/(notes.length-1))*0.8, t);
+        const env = actx.createGain();
+        env.gain.setValueAtTime(0.0001, t);
+        env.gain.exponentialRampToValueAtTime(0.18, t + 0.05);
+        env.gain.exponentialRampToValueAtTime(0.0001, t + noteLen);
+
+        const o1 = actx.createOscillator(); o1.type = 'sawtooth'; o1.frequency.setValueAtTime(freq, t); o1.detune.setValueAtTime(-6, t);
+        const o2 = actx.createOscillator(); o2.type = 'triangle'; o2.frequency.setValueAtTime(freq, t); o2.detune.setValueAtTime(+6, t);
+
+        o1.connect(env); o2.connect(env); env.connect(pan).connect(master);
+        o1.start(t); o2.start(t);
+        o1.stop(t + noteLen + 0.02); o2.stop(t + noteLen + 0.02);
+      });
+    }
+    const display = document.getElementById('display');
+    const burstLayer = document.getElementById('burstLayer');
+
+    // fully random selection; no anti-repeat bias
+    let animDurationMs = 2200;
+    function pickName(){
+      const idxA = randInt(MIDDLES.length);
+      const idxB = randInt(GIVENS.length);
+      const father = (document.getElementById("father")?.value || '').trim();
+      const mother = (document.getElementById("mother")?.value || '').trim();
+      const fatherSurname = father ? father.split(/\s+/)[0] : '';
+      const motherSurname = mother ? mother.split(/\s+/)[0] : '';
+      const surname = fatherSurname || motherSurname || '';
+      const full = [surname, MIDDLES[idxA], GIVENS[idxB]].filter(Boolean).join(" ");
+      return { full };
+    }
+
+    const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+    class Scrambler {
+      constructor(el){ this.el = el; this.frame = 0; this.queue = []; this.running = false; this.resolve = null; this.from = el.textContent || ''; }
+      setText(newText, duration=1400){
+        this.running = true; this.frame = 0; const total = Math.max(60, Math.floor(duration/16));
+        const from = this.from; const length = Math.max(from.length, newText.length);
+        this.queue = [];
+        for(let i=0;i<length;i++){
+          const fromCh = from[i] || '';
+          const toCh = newText[i] || '';
+          const start = randInt(18);
+          const end = start + Math.max(12, randInt(Math.max(12, total - start)));
+          this.queue.push({from: fromCh, to: toCh, start, end, char: ''});
+        }
+        return new Promise(res => { this.resolve = res; this.update(); });
+      }
+      update(){
+        this.frame++;
+        let out = '', done = 0;
+        for(const q of this.queue){
+          if(this.frame >= q.end){ done++; out += q.to; }
+          else if(this.frame >= q.start){ if(!q.char || randInt(8)===0) q.char = GLYPHS[randInt(GLYPHS.length)]; out += q.char; }
+          else { out += q.from; }
+        }
+        this.el.textContent = out;
+        if(done === this.queue.length){ this.from = this.el.textContent; this.running = false; const r = this.resolve; this.resolve = null; r && r(); return; }
+        requestAnimationFrame(()=>this.update());
+      }
+      finish(){ if(!this.running) return; for(const q of this.queue){ q.end = Math.min(q.end, this.frame+1); } }
+    }
+
+    const scrambler = new Scrambler(display);
+
+    // JS-based burst removed — using pure CSS fireworks overlay
+
+    // Fit headline to container on mobile
+    function fitDisplay(){
+      const container = display.parentElement;
+      if(!display.dataset.baseFs){
+        display.dataset.baseFs = getComputedStyle(display).fontSize;
+      }
+      const maxWidth = container.clientWidth - 16; // padding allowance
+      let size = parseFloat(display.dataset.baseFs);
+      display.style.fontSize = size + 'px';
+      // Reduce up to 10 steps to fit
+      for(let i=0;i<10 && display.scrollWidth > maxWidth && size > 24;i++){
+        size = Math.max(24, size * 0.9);
+        display.style.fontSize = size + 'px';
+      }
+    }
+
+    function spin(){
+      if(scrambler.running) return;
+      // Keep text visible during scrambling; only emphasize at the end
+      const n = pickName();
+      const d = animDurationMs;
+      scrambler.setText(n.full, d).then(()=>{
+        fitDisplay();
+        // ensure fade-in state is applied without hiding during run
+        display.classList.add('fade');
+        requestAnimationFrame(()=>{ display.classList.add('show'); });
+        // Fireworks now purely CSS (always running in background)
+        playWin();
+        // Show celebrate toast briefly
+        const cel = document.getElementById('celebrate');
+        if(cel){
+          cel.classList.remove('show'); // reset
+          // force reflow to restart transition
+          // eslint-disable-next-line no-unused-expressions
+          cel.offsetHeight; 
+          cel.classList.add('show');
+          setTimeout(()=> cel.classList.remove('show'), 1800);
+        }
+      });
+    }
+    function stop(){ scrambler.finish(); }
+
+    // Controls
+    document.getElementById("spinBtn").onclick = spin;
+    document.getElementById("stopBtn").onclick = stop;
+    // Tối giản: bỏ nút gợi ý lại
+
+    // Tối giản: bỏ chức năng khóa họ
+    window.addEventListener('resize', fitDisplay);
+
+    // Settings sidebar wiring
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsOverlay = document.getElementById('settingsOverlay');
+    const settingsPanel = document.getElementById('settingsPanel');
+    const closeSettings = document.getElementById('closeSettings');
+    const durationRange = document.getElementById('durationRange');
+    const durationValue = document.getElementById('durationValue');
+    const colorPreset = document.getElementById('colorPreset');
+
+    function openSettings(open){
+      if(open){
+        settingsOverlay.classList.remove('pointer-events-none');
+        settingsOverlay.classList.remove('opacity-0');
+        settingsOverlay.classList.add('opacity-100');
+        settingsPanel.classList.remove('-translate-x-full');
+        settingsPanel.classList.add('translate-x-0');
+      } else {
+        settingsOverlay.classList.add('pointer-events-none');
+        settingsOverlay.classList.remove('opacity-100');
+        settingsOverlay.classList.add('opacity-0');
+        settingsPanel.classList.add('-translate-x-full');
+        settingsPanel.classList.remove('translate-x-0');
+      }
+    }
+    settingsBtn.addEventListener('click', ()=> openSettings(true));
+    settingsOverlay.addEventListener('click', ()=> openSettings(false));
+    closeSettings.addEventListener('click', ()=> openSettings(false));
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') openSettings(false); });
+
+    function setDuration(ms){ animDurationMs = ms; if(durationRange) durationRange.value = ms; if(durationValue) durationValue.textContent = (ms/1000).toFixed(1); }
+    durationRange.addEventListener('input', ()=> { setDuration(parseInt(durationRange.value,10)); saveSettings(); });
+
+    function applyColorPreset(p){
+      let bg;
+      switch(p){
+        case 'sunset': bg = 'linear-gradient(90deg, #f59e0b, #ef4444, #ec4899)'; break;
+        case 'emerald': bg = 'linear-gradient(90deg, #10b981, #06b6d4, #22c55e)'; break;
+        case 'mono': bg = 'linear-gradient(90deg, #334155, #111827)'; break;
+        case 'neon': default: bg = 'linear-gradient(90deg, #2563eb, #8b5cf6, #06b6d4)';
+      }
+      display.style = bg;
+      display.style.backgroundSize = '200% auto';
+    }
+    colorPreset.addEventListener('change', ()=> { applyColorPreset(colorPreset.value); saveSettings(); });
+
+    // Persist settings
+    function saveSettings(){
+      const data = {
+        sound: !!(soundToggle && soundToggle.checked),
+        duration: animDurationMs,
+        preset: colorPreset.value,
+      };
+      try { localStorage.setItem('rn_settings', JSON.stringify(data)); } catch {}
+    }
+    function loadSettings(){
+      let data = null; try { data = JSON.parse(localStorage.getItem('rn_settings')||'null'); } catch {}
+      if(data){
+        if(soundToggle) { soundToggle.checked = !!data.sound; soundEnabled = !!data.sound; }
+        if(typeof data.duration === 'number') setDuration(data.duration);
+        if(data.preset){ colorPreset.value = data.preset; applyColorPreset(data.preset); }
+      } else {
+        // defaults
+        if(soundToggle) soundToggle.checked = soundEnabled;
+        setDuration(2200);
+        applyColorPreset('neon');
+      }
+    }
+    loadSettings();
+  </script>
+</body>
+</html>
