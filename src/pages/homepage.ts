@@ -41,12 +41,12 @@ const HomePage = () => {
   return `
     <div class="container">
       <h1>JavaScript Demo Applications</h1>
-      <div class="apps-grid">
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-6">
         ${apps.map(app => `
-          <div class="app-card">
-            <h2>${app.name}</h2>
-            <p>${app.description}</p>
-            <a href="${app.path}" class="app-link">View Demo</a>
+          <div class="bg-[url(/images/${app.id}.jpg)] p-4 rounded-lg shadow-md">
+            <h2 class="text-lg text-black font-semibold">${app.name}</h2>
+            <p class="mt-4 text-sm text-black">${app.description}</p>
+            <a href="${app.path}" class="app-link mt-4">View Demo</a>
           </div>
         `).join('')}
       </div>
