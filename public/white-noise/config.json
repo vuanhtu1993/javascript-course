@@ -10,5 +10,9 @@
     "volume": 0.8,
     "loop": true,
     "autoStopMinutes": 15
+  },
+  "engine": {
+    "iosCompat": true,
+    "keepScreenAwake": false
   }
 }
