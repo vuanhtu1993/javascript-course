@@ -3,9 +3,33 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="./icon.png" />
+  <!-- Favicons for browsers -->
+  <link rel="icon" type="image/png" href="./icon.png" />
+  <!-- iOS Home Screen / Safari tab icon -->
+  <link rel="apple-touch-icon" href="./icon.png" />
+  <!-- Optional: Safari pinned tab (macOS) -->
+  <link rel="mask-icon" href="./vite.svg" color="#10b981" />
+  <!-- Optional: status bar color on mobile -->
+  <meta name="theme-color" content="#10b981" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Baby White Noise</title>
+  <script>
+    // Hint artwork for iOS lock screen/Dynamic Island via Media Session
+    if ('mediaSession' in navigator) {
+      try {
+        navigator.mediaSession.metadata = new window.MediaMetadata({
+          title: document.title,
+          artist: 'White Noise',
+          album: 'Sleep Sounds',
+          artwork: [
+            { src: './icon.png', sizes: '96x96', type: 'image/png' },
+            { src: './icon.png', sizes: '192x192', type: 'image/png' },
+            { src: './icon.png', sizes: '512x512', type: 'image/png' },
+          ],
+        });
+      } catch (e) { /* ignore */ }
+    }
+  </script>
   <script type="module" crossorigin src="./assets/index-BlWR2nHB.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-C884reQi.css">
 </head>
