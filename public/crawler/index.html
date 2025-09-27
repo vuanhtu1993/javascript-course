@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyển đổi HTML Table sang CSV</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Chuyển đổi HTML Table sang CSV</h1>
+
+        <div class="input-section">
+            <h2>Nhập HTML Table</h2>
+            <textarea id="htmlInput" placeholder="Dán mã HTML của bảng vào đây..."></textarea>
+            <button id="convertBtn">Chuyển đổi</button>
+        </div>
+
+        <div class="preview-section">
+            <h2>Xem trước bảng</h2>
+            <div id="tablePreview" class="table-container"></div>
+        </div>
+
+        <div class="output-section">
+            <h2>Kết quả CSV</h2>
+            <textarea id="csvOutput" readonly></textarea>
+            <div class="action-buttons">
+                <button id="copyBtn">Sao chép CSV</button>
+                <button id="copyExcelBtn">Sao chép cho Excel</button>
+                <button id="downloadBtn">Tải xuống CSV</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

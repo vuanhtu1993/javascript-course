@@ -1,6 +1,18 @@
 const HomePage = () => {
   const apps = [
     {
+      id: 'white-noise',
+      name: 'White Noise',
+      description: 'A white noise theme from anhtus',
+      path: '/white-noise/index.html'
+    },
+    {
+      id: 'crawler',
+      name: 'Crawler',
+      description: 'A web crawler application',
+      path: '/crawler/index.html'
+    },
+    {
       id: 'kanban-board',
       name: 'Kanban Board',
       description: 'A drag and drop kanban board for task management',
@@ -29,12 +41,6 @@ const HomePage = () => {
       name: 'Name Generation',
       description: 'A name generation theme from anhtus',
       path: '/name-generation/index.html'
-    },
-    {
-      id: 'white-noise',
-      name: 'White Noise',
-      description: 'A white noise theme from anhtus',
-      path: '/white-noise/index.html'
     }
     // More apps will be added here in the future
   ]
